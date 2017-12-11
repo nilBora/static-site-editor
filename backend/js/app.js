@@ -71,10 +71,9 @@ var nilContentEditable = {
                     'content': content,
                     //'nilContent': nilContent
                 }, function( data ) {
-                    window.location.reload();
+                    //window.location.reload();
                 });
             }
-
         });
     }
 }

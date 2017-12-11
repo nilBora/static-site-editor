@@ -1,0 +1,17 @@
+#<IfModule mod_rewrite.c>
+#	RewriteEngine On
+#	RewriteBase /
+# add trailing slash to /admin request
+#RewriteCond %{REQUEST_URI} admin$
+#RewriteRule ^(.*)$ /backend/ [L,R=301]
+
+# no, so we redirect to our front web controller
+#RewriteCond %{REQUEST_FILENAME}	!-f
+#RewriteCond $1 !^(cms\.php)
+#RewriteRule ^(.*)$ /backend/cms.php?url=$1 [QSA,L]
+#</IfModule>
+
+
+RewriteEngine on
+RewriteCond %{REQUEST_URI} \.html$
+RewriteRule ^(.*)$ /backend/cms.php?url=$1 [QSA,L]

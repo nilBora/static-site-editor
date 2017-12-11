@@ -1,0 +1,396 @@
+/*
+Template 2064 Slidit
+http://www.tooplate.com/view/2064-slidit
+*/
+
+body {
+	margin: 0;
+	padding: 0;
+	color: #666;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	line-height: 18px; 
+	background-color: #85892e; 
+	background-image: url(images/tooplate_body.jpg);
+	background-repeat: repeat-x;
+	background-position: top;
+}
+
+.white { color: #FFF; }
+
+h1, h2, h3, h4, h5, h6 {
+	color:#333;
+	font-weight:400;
+	padding: 0;
+	margin: 0 0 10px 0;
+	font-family: Verdana, Geneva, sans-serif;
+}
+
+h1 { font-size:34px; margin-bottom: 35px  }
+h2 { font-size:26px; margin-bottom: 30px; line-height: 30px; }
+h3 { font-size:20px; line-height: 24px }
+h4 { font-size:18px }
+h5 { font-size:16px }
+h6 { font-size:12px }
+
+h1 a, h2 a, h3 a, h4 a, h5 a, h6 a{
+	color:#95200c;
+}
+
+img { margin: 0; padding: 0; border: 0; }
+.img_border { border: 1px solid #ccc; background: #fff; }
+.img_border_s { padding: 4px }
+.img_border_b { padding: 7px }
+.img_nom { display: block; margin-bottom: 15px }
+.img_fl { float: left; display: block; margin: 1px 20px 8px 0 }
+.img_fr { float: right; margin: 1px 0 8px 20px }
+
+p { margin: 0 0 10px 0; padding: 0 }
+em { color: #771201 }
+
+label { display: block; }
+input { margin-bottom: 10px }
+
+a:link, a:visited { color:#771201; text-decoration: none}
+a:hover { text-decoration:underline }
+a:hover,a:active { outline:none }
+
+a.more { display: inline-block; text-decoration: none; margin-top: 15px; color: #fff; width: 80px; height: 28px; line-height: 28px; text-align: center; background: url(images/tooplate_more.png) }
+
+ul, ol { margin: 0; padding: 0; list-style: none }
+
+ul.nobullet { margin: 0; padding: 0; list-style: none }
+ul.nobullet li { margin: 0; padding: 0 }
+
+ul.list_bullet { margin: 10px 0 10px 15px; padding: 0; list-style: none }
+ul.list_bullet li { color:#797979; margin: 0 0 7px 0; padding: 0 0 0 20px; background: url(images/tooplate_bullet.png) no-repeat scroll 0 5px  }
+ul.list_bullet li a { color: #797979; font-weight: normal; text-decoration: none }
+ul.list_bullet li a:hover { color: #797979 }
+
+#tooplate_wrapper {
+	width: 980px;
+	margin: 0 auto;
+	padding: 0 5px;
+}
+
+/** Columns **/
+
+.clear { clear: both }
+.center { margin: 0 auto }
+
+.content_wrapper { overflow: hidden; width: 100% }
+.content_mb_30 { margin-bottom: 30px }
+.content_mb_60 { margin-bottom: 60px }
+
+.col_2 {width:420px;}
+.col_3 {width:260px;}
+.col_4 {width:180px;}
+.col_23 {width:580px;}
+.col_34 {width:660px;}
+.col_5	{width:156px}
+.col_25 {width:342px}
+
+.col_2, .col_3, .col_4, .col_23, .col_34 { float:left; margin: 0 60px 0 0 }
+.col_5, .col_25 { float: left; margin: 0 30px 0 0 }
+
+.col_4 .img_fl { margin-right: 15px }
+.col_4 .text { float: right; display: block; width: 130px }
+.col_4 .text h3 { margin-bottom: 10px }
+
+.left {float:left }
+.right {float:right }
+.no_margin_right {margin-right:0 !important;}
+.margin_bottom { margin-bottom: 30px }
+
+
+/*** Header ***/
+
+#tooplate_header {
+	width: 100%;
+	height: 128px;
+}
+#site_title { display: block; margin: 0 auto; width: 300px; }
+#site_title a { display: block; padding: 30px 0 0 0; font-size: 13px; color: #857c7b; text-align: center }
+#site_title a span { display: block; letter-spacing: 2px }
+
+/*** Middle ***/
+
+#tooplate_middle {
+	position: relative;
+	width: 980px;
+	padding: 100px 0 20px;
+	margin-bottom: 35px;
+	background: url(images/tooplate_middle.png) repeat-y center
+}
+
+#tooplate_middle span.middle_bottom_frame {
+	position: absolute;
+	left: 0;
+	bottom: -15px;
+	width: 980px;
+	height: 15px;
+	background: url(images/tooplate_middle_bottom.png)
+}
+
+#tooplate_middle_content {
+	padding: 0 40px;
+}
+
+#tooplate_middle_content h1 {
+	color: #fff
+}
+#tooplate_middle_content p {
+	width: 640px;
+	color: #ccc;
+	font-size: 18px;
+	line-height: 24px;
+}
+
+#tooplate_menu {
+	position: absolute;
+	padding: 9px 37px;
+	top: 0;
+	left: -37px;
+	width: 980px;
+	height: 48px;
+	background: #0e0e0e;
+	background: url(images/tooplate_menu_bg.png) no-repeat 
+}
+
+#social {
+	position: absolute;
+	width: 150px;
+	top: 12px;
+	right: 0;
+}
+
+#social li a { display: block; float: left; margin-left: 5px }
+
+/*** Main Content ***/
+
+#tooplate_main {
+	position: relative;
+	width: 900px;
+	padding: 20px 40px;
+	padding-bottom: 10px;
+	background: #fff;
+}
+
+#tooplate_main span.main_frame {
+	position: absolute;
+	left: 0px;
+	width: 980px;
+	height: 10px;
+}
+#tooplate_main span.main_top_frame {
+	top: -10px;
+	background: url(images/tooplate_content_top.png)
+}
+#tooplate_main span.main_bottom_frame {
+	bottom: -10px;
+	background: url(images/tooplate_content_bottom.png)
+}
+
+/*** Content ***/
+
+#tooplate_content {
+	width: 580px;
+}
+
+.service_home h2 { margin-bottom: 10px }
+.service_home h2 { font-size: 18px; font-weight: 700; line-height: 24px }
+.service_home h2 img{
+	float: left;
+	display: block; margin-right: 15px;
+}
+
+.post { clear: both; margin: 0 0 40px 0; padding: 0 0 40px 0 }
+.post_content { float: right; width: 400px}
+.post_meta { margin-bottom: 10px; font-size: 10px; }
+.post img { float: left; width: 130px; }
+.post h2 { font-size: 20px; margin-bottom: 0 }
+.post p { margin-bottom: 10px }
+.comment_list { margin: 0 0 40px; padding: 0; list-style: none }
+.comment_list .comment_box { padding: 20px; border-bottom: 1px solid #ccc  }
+.comment_list li { margin-bottom: 40px }
+.comment_list li ul { list-style: none; background: none }
+.comment_list li ul li { margin-bottom: 20px }
+.comment_list li ul li .comment_box {  }
+.comment_content { float: right; width: 560px }
+.comment_list li ul li.depth_2 .comment_content  { width: 520px }
+.comment_list li ul li.depth_3 .comment_box { border-bottom: 1px solid #ccc}
+.comment_list li ul li.depth_3 .comment_content  { width: 480px }
+
+
+#comment_form { width: 400px; margin-top: 40px }
+#comment_form form label { display: block }
+#comment_form form .input_field { display: block; width: 192px; padding: 5px; margin-bottom: 20px; color: #666;  background: #fff; border: 1px solid #ccc; }
+#comment_form form textarea { width: 388px; height: 130px; padding: 5px; margin-bottom: 10px; color: #666; 5px; background: #fff; border: 1px solid #ccc }
+
+#contact_form { padding: 0; margin-bottom: 40px;}
+#contact_form form { margin: 0px; padding: 0px; }
+#contact_form form .input_field { width: 248px; padding: 2px 5px; margin-bottom: 20px; color: #666;  background: #fff; border: 1px solid #ccc; }
+#contact_form form label { display: block }
+#contact_form form textarea { width: 568px; height: 180px; padding: 5px; margin-bottom: 10px; color: #666; 5px; background: #fff; border: 1px solid #ccc }
+
+/* Gallery */
+#gallery li { display: block; float: left; margin: 0 30px 30px 0; padding: 0; width: 268px; height: 268px; padding: 5px; border: 1px solid #ccc; position: relative; }
+#gallery li span { display: block }
+#gallery li span a.more { display: block; margin-top: 10px }
+#gallery li.no_margin_right { margin-right: 0 }
+#gallery li span {
+display: none; 
+font-size: 11px; 
+position: absolute; 
+bottom: 7px; 
+left: 6px; 
+padding: 5px; 
+background: #fff; 
+color: #ccc;
+width: 256px; 
+line-height: 1.2em;
+background: url(images/caption_background.png) repeat;
+}
+#gallery li span h4 { color: #fff; margin-bottom: 10px; font-size: 14px }
+#gallery li a:hover { text-decoration: none }
+
+/*** Sidebar ***/
+
+#tooplate_sidebar {
+	width: 260px;
+}
+
+.sidebar_content_box {
+	padding: 20px;
+	margin-bottom: 20px;
+	background: #111
+}
+
+.sidebar_section {
+	padding: 10px;
+	width: 200px;
+	margin-bottom: 40px;
+}
+
+ul.sidebar_link li {
+	padding: 10px 0;
+	border-bottom: 1px solid #ccc
+}
+
+ul.rc_comment li span { color: #333 }
+
+
+/*** FOOTER ***/
+
+#tooplate_footer {
+	color: #333;
+	padding: 40px 40px;
+	background: url(images/tooplate_content_bottom.png) top right no-repeat
+}
+#tooplate_footer h4 { color: #000; margin-bottom: 20px }
+#tooplate_footer a { color: #000 }
+
+#tooplate_copyright {
+	padding: 10px 40px;
+	text-align: center;
+	color: #333
+}
+
+.pagging { margin: 0 0 20px; padding: 0 }
+.pagging ul { margin: 0; padding: 0; list-style: none }
+.pagging ul li { margin: 0; padding: 0; display: inline }
+.pagging ul li a { float: left; display: block; color: #666; text-decoration: none; margin-right: 5px; padding: 5px 10px; background: #eeeeee; border: 1px solid #dddddc}
+.pagging ul li a:hover { background: #771201; border: 1px solid #5f0e00; color: #fff }
+
+
+
+.list_carousel {
+	position: relative;
+	width: 940px;
+	height: 195px;
+	padding: 0 20px;
+}
+.list_carousel ul {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+	display: block;
+}
+.list_carousel li {
+	font-size: 40px;
+	color: #999;
+	text-align: center;
+	background-color: #eee;
+	width: 195px;
+	height: 195px;
+	padding: 0;
+	margin: 0 20px;
+	display: block;
+	float: left;
+}
+.clearfix {
+	float: none;
+	clear: both;
+}
+a.slider_nav_button {
+	position: absolute;
+	top: 80px;
+	width: 25px;
+	height: 35px;
+	text-indent: -10000px;	
+	background-image: url(images/tooplate_slider_nav_button.png);
+	background-repeat: no-repeat;
+}
+a.prev {
+	left: -50px;	
+	background-position: 0 0
+}
+a.next {
+	right: -50px;
+	background-position: -25px 0
+}
+
+
+.testimonial_carousel {
+	position: relative;
+	width: 300px;
+	height: 200px;
+	padding: 0 50px;
+	overflow: hidden
+}
+.testimonial_carousel ul {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+	display: block;
+}
+.testimonial_carousel li {
+	width: 300px;
+	height: 200px;
+	padding: 0;
+	margin: 0;
+	display: block;
+	float: left;
+}
+p.testimonial { font-family: Georgia, "Times New Roman", Times, serif; font-size: 16px; line-height: 24px; font-style: italic; margin-bottom: 20px; }
+.clearfix {
+	float: none;
+	clear: both;
+}
+a.test_slider_nav_button {
+	position: absolute;
+	top: 40px;
+	width: 25px;
+	height: 35px;
+	text-indent: -10000px;	
+	background-image: url(images/tooplate_slider_nav_button.png);
+	background-repeat: no-repeat;
+}
+a.test_prev {
+	left: 0px;	
+	background-position: 0 0
+}
+a.test_next {
+	right: 0px;
+	background-position: -25px 0
+}

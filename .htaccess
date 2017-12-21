@@ -14,4 +14,4 @@
 
 RewriteEngine on
 RewriteCond %{REQUEST_URI} \.html$
-RewriteRule ^(.*)$ /backend/cms.php?url=$1 [QSA,L]
+RewriteRule ^(.*)$ /nnEditor/index.php?url=$1 [QSA,L]

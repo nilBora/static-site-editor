@@ -1,15 +1,18 @@
-var nilContentEditable = {
-    nilContent: {},
+var nnCore = {
+    
+    selectors: {
+        tag: '.nneditor-tag',
+        tagChange: '.nneditor-tag-change'
+    },
+    
     onInit: function() {
-
+        
+        
         this.onCheckjQuery();
-        this.doContentEditableTrue();
         this.doAppendControllButton();
-        this.doShearchContentEditableTrue();
         this.onSaveContent();
         
         this.appendContentEditable();
-        
         this.appnedChangeContentEditable();
     },
     
@@ -20,7 +23,7 @@ var nilContentEditable = {
     },
     
     appnedChangeContentEditable: function() {
-        jQuery('.nneditor-tag').on('input', function() {
+        jQuery(this.selectors.tag).on('input', function() {
             jQuery(this).addClass('nneditor-tag-change'); 
         });
     },
@@ -32,14 +35,6 @@ var nilContentEditable = {
             jQuery(tag).addClass('nneditor-tag');
         })
         
-    },
-    
-    
-    //modifide
-    doContentEditableTrue: function() {
-        jQuery("p[class^='nil-edit-content-']").each(function() {
-            jQuery(this).attr('contenteditable', true);
-        })
     },
 
     doAppendControllButton: function() {
@@ -71,29 +66,13 @@ var nilContentEditable = {
         );
     },
 
-    doShearchContentEditableTrue: function() {
-        var key;
-        jQuery("[contenteditable=true]").blur(function() {
-            key = jQuery(this).data('nnEditor');
-            nilContentEditable.nilContent[key] = jQuery(this).html();
-        });
-    },
-
     onSaveContent: function() {
         jQuery('#nil_button_save').click(function () {
             if (confirm("You want to save the file?")) { 
                 var key, content = {};
                 var $this = jQuery(this);
-                
-/*
-                jQuery("[contenteditable=true]").map(function() {
-                    key = jQuery(this).data('nneditor');
-                    content[key] = jQuery(this).html();
-                });
-*/
+
                 jQuery('*').removeAttr('contenteditable');
-                
-                
                 
                 jQuery('.nneditor-tag-change').map(function(i) {
                     key = jQuery(this).data('nneditor');
@@ -106,11 +85,8 @@ var nilContentEditable = {
                     'save': 1,
                     'url': jQuery('body').data('nneditor-url'),
                     'content': contentJson,
-                    //'nilContent': nilContent
                 }, function( data ) {
                      $this.parent().detach();
-                     //jQuery('*').removeAttr('contenteditable');
-                    
                     //window.location.reload();
                 });
             }
@@ -118,4 +94,4 @@ var nilContentEditable = {
     }
 }
 
-nilContentEditable.onInit();
+nnCore.onInit();

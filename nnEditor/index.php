@@ -104,7 +104,8 @@ class Controller
 
         foreach ($contentPost as $ident => $content) {
             $div = $xpath->query('//*[@data-nneditor="'.$ident.'"]')->item(0);
-            $div->nodeValue = $content;   
+            $div->nodeValue = $content;
+           
         }
         $content = $dom->saveHTML();
        

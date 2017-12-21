@@ -7,7 +7,6 @@ var nnCore = {
     
     onInit: function() {
         
-        
         this.onCheckjQuery();
         this.doAppendControllButton();
         this.onSaveContent();

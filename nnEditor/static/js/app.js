@@ -28,8 +28,7 @@ var nnCore = {
     },
     
     appendContentEditable: function() {
-        var tags = ['p', 'h1', 'li'];
-        tags.map(function(tag, i) {
+        ALLOW_TAGS.map(function(tag, i) {
             jQuery(tag).attr('contenteditable', true);
             jQuery(tag).addClass('nneditor-tag');
         })

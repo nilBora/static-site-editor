@@ -125,7 +125,7 @@ class DomEditor
     public function doDiffContent($postContent)
     {
         $xpath = new \DomXPath($this->_dom);
-
+        
         foreach ($postContent as $ident => $content) {
             $div = $xpath->query('//*[@data-nneditor="'.$ident.'"]')->item(0);
             $div->nodeValue = $content;

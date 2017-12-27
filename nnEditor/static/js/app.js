@@ -37,8 +37,10 @@ var nnCore = {
         ALLOW_TAGS.map(function(tag, i) {
             jQuery(tag).attr('contenteditable', true);
             jQuery(tag).addClass('nneditor-tag');
-        })
-        
+        });
+        //XXX: KOSTIL FIX ME
+        jQuery('.nn-custom').removeAttr('contenteditable');
+        jQuery('.nn-custom').removeClass('nneditor-tag');
     },
     
     changeImage: function() {
@@ -50,15 +52,11 @@ var nnCore = {
     },
     
     appendUserTags: function() {
-       jQuery('#h1').on('click', function(e) {
-           e.preventDefault();
-           nnCore.appendUserTag('h1');
-       });
-       
-       jQuery('#h2').on('click', function(e) {
-           e.preventDefault();
-           nnCore.appendUserTag('h2');
-       });
+        jQuery('.nn-custom-button').on('click', function(e) {
+            e.preventDefault();
+            var tag = jQuery(this).data('nn-tag');
+            nnCore.appendUserTag(tag);
+        });
     },
     
     appendUserTag: function(tag) {

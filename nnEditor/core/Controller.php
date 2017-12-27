@@ -67,14 +67,14 @@ class Controller
         //XXX: save history file
         file_put_contents(FS_BACKUP.$this->_request['url'], $content);
         
-        $content = $domEditor->getContentWithJS();
+        $content = $domEditor->getContentWithAdminPanel();
         
         return $content;
     }
         
     public function getAllowedTags()
     {
-        return ['h1', 'p', 'li'];
+        return ['h1', 'p', 'li', 'img'];
     }
     
     private function _doSaveContent()
@@ -87,7 +87,7 @@ class Controller
         
         $domEditor = new DomEditor($contentHtml);
         
-        $content = $domEditor->doSaveContent($contentPost);
+        $content = $domEditor->doDiffContent($contentPost);
 
         if (!file_put_contents(FS_BACKUP.$urlPost, $content)) {
             throw new Exception('File Not Save');
@@ -95,6 +95,25 @@ class Controller
         
         return true;
     }
+    
+    public function fetch($template)
+    {
+        $templatePath = FS_ROOT.'static/template/'.$template;
+
+        if (!file_exists($templatePath)) {
+            $msg = sprintf('Template Not Found: %s', $templatePath);
+            throw new Exception($msg);
+        }
+        
+        ob_start();
+        
+        include $templatePath;
+        
+        $content = ob_get_clean();
+        
+        return $content;
+    }
+    
     
     private function _getCurrentTemplate($fileName)
     {

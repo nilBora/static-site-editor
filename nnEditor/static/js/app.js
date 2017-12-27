@@ -1,5 +1,6 @@
 var nnCore = {
     
+    lastElement: false,
     selectors: {
         tag: '.nneditor-tag',
         tagChange: '.nneditor-tag-change'
@@ -8,11 +9,15 @@ var nnCore = {
     onInit: function() {
         
         this.onCheckjQuery();
-        this.doAppendControllButton();
+
         this.onSaveContent();
         
         this.appendContentEditable();
         this.appnedChangeContentEditable();
+        
+        this.appendUserTags();
+        
+        this.changeImage();
     },
     
     onCheckjQuery: function() {
@@ -23,7 +28,8 @@ var nnCore = {
     
     appnedChangeContentEditable: function() {
         jQuery(this.selectors.tag).on('input', function() {
-            jQuery(this).addClass('nneditor-tag-change'); 
+            jQuery(this).addClass('nneditor-tag-change');
+            nnCore.lastElement = jQuery(this);
         });
     },
     
@@ -34,38 +40,43 @@ var nnCore = {
         })
         
     },
-
-    doAppendControllButton: function() {
-        jQuery('body').append('<div id="nil_system_info"><a id="nil_button_save">Save</a></div>');
-        jQuery('#nil_system_info').css(
-            {
-                'position': 'fixed',
-                'bottom': '0px',
-                'left': '0px',
-                'width': '100%',
-                'height': '50px',
-                'margin': '0',
-                'padding': '5px',
-                'background': '#87CEEB',
-                'border': '1px solid #B3B4BD',
-                'font': '11px verdana',
-                'z-index': '9999',
-                'opacity': '0.9',
-                'filter': 'alpha(Opacity=90)',
-                /*'border-radius': '8px'*/
+    
+    changeImage: function() {
+        jQuery('.nneditor-tag').on('click', function(e) {
+            if (jQuery(this).is('img')) {
+                console.log('IMG');
             }
-        );
-
-        jQuery('#nil_button_save').css(
-            {
-                'cursor': 'pointer',
-                'color': '#00008B',
-            }
-        );
+        })
     },
-
+    
+    appendUserTags: function() {
+       jQuery('#h1').on('click', function(e) {
+           e.preventDefault();
+           nnCore.appendUserTag('h1');
+       });
+       
+       jQuery('#h2').on('click', function(e) {
+           e.preventDefault();
+           nnCore.appendUserTag('h2');
+       });
+    },
+    
+    appendUserTag: function(tag) {
+        var content = nnCore.lastElement.html();
+        
+        if (nnCore.hasUserTag()) {
+            nnCore.lastElement.first().children().contents().unwrap();
+        }
+        nnCore.lastElement.addClass('nnEditor-user-tag');
+        nnCore.lastElement.wrapInner(document.createElement(tag));
+    },
+    
+    hasUserTag: function() {
+        return nnCore.lastElement.hasClass('nnEditor-user-tag');
+    },
+    
     onSaveContent: function() {
-        jQuery('#nil_button_save').click(function () {
+        jQuery('#nn_button_save').click(function () {
             if (confirm("You want to save the file?")) { 
                 var key, content = {};
                 var $this = jQuery(this);
@@ -83,6 +94,7 @@ var nnCore = {
                     'save': 1,
                     'url': jQuery('body').data('nneditor-url'),
                     'content': contentJson,
+                    'action': ''
                 }, function( data ) {
                      $this.parent().detach();
                     //window.location.reload();

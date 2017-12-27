@@ -38,13 +38,16 @@ class DomEditor
             $nod->setAttribute('data-nneditor-url', $url);
         }
         
-        $content = $this->_dom->saveHTML();
+        $content = $this->saveHtmlDom();
         
         return $content;
     }
     
-    public function getContentWithJS()
+    public function getContentWithAdminPanel()
     {
+        $this->_displayPanel();
+        
+        
         $hd = $this->_dom->getElementsByTagName('body');
         $hd = $hd->item(0);
         
@@ -61,7 +64,50 @@ class DomEditor
         $script->appendChild($scriptAttr);
         $hd->appendChild($script);
         
-        return $this->_dom->saveHTML();
+        return $this->saveHtmlDom();
+    }
+    
+    private function _displayPanel()
+    {
+        $this->_includeCss('panel.css');
+         
+        $hd = $this->_dom->getElementsByTagName('body');
+        $hd = $hd->item(0);
+        
+        $div = $this->_dom->createElement('div');
+        $idAttr = $this->_dom->createAttribute('id');
+        $idAttr->value = "nn_system_info";
+        $div->appendChild($idAttr);
+        $div->nodeValue = $this->_fetchPanelHtml();
+        
+        $hd->appendChild($div);
+    }
+    
+    private function _includeCss($cssName)
+    {
+        $hd = $this->_dom->getElementsByTagName('head');
+        $hd = $hd->item(0);
+        
+        $style = $this->_dom->createElement('link');
+        
+        $styleAttr = $this->_dom->createAttribute('type');
+        $styleAttr->value= 'text/css';
+        $style->appendChild($styleAttr);
+        
+        $styleAttr = $this->_dom->createAttribute('rel');
+        $styleAttr->value= 'stylesheet';
+        $style->appendChild($styleAttr);
+        
+        $styleAttr = $this->_dom->createAttribute('href');
+        $styleAttr->value= '/nnEditor/static/css/'.$cssName;
+        $style->appendChild($styleAttr);
+        
+        $hd->appendChild($style);
+    }
+    
+    private function _fetchPanelHtml()
+    {
+        return Controller::getInstance()->fetch('panel.phtml');
     }
     
     private function _fetchAllowedTagsByJs()
@@ -76,23 +122,25 @@ class DomEditor
         return $tagsJs;
     }
     
-    public function doSaveContent($postContent)
+    public function doDiffContent($postContent)
     {
         $xpath = new \DomXPath($this->_dom);
 
         foreach ($postContent as $ident => $content) {
             $div = $xpath->query('//*[@data-nneditor="'.$ident.'"]')->item(0);
             $div->nodeValue = $content;
-           
         }
         
-        return $this->_dom->saveHtml();
+        return $this->saveHtmlDom();
     }
     
-    public function getDom()
+    public function &getDom()
     {
         return $this->_dom;
     }
     
-    
+    public function saveHtmlDom()
+    {
+        return html_entity_decode($this->_dom->saveHtml()); 
+    }
 }

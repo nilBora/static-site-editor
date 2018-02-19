@@ -1,0 +1,41 @@
+ <div class="col-xs-12">
+  <div class="box">
+    <div class="box-header">
+      <h3 class="box-title">Files</h3>
+    </div>
+    <!-- /.box-header -->
+    <div class="box-body">
+      <table id="example2" class="table table-bordered table-hover">
+        <thead>
+        <tr>
+          <th>File</th>
+          <th>Type</th>
+          <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        <?php foreach ($files as $name => $file) { ?>
+            <tr>
+              <td>
+                  <?php if ($file['type'] == 'dir') { ?>
+                  <a class="js-open-history-dir" data-path="<?php echo $file['path']; ?>" data-name="<?php echo $name;?>" href="/nneditor/files/<?php echo $name;?>/">
+                      <?php echo $name;?>
+                  </a>
+                  <?php } else {
+                       echo $name;
+                  }?>
+              </td>
+              <td><?php echo $file['type']; ?></td>
+              <td>
+                  <?php if ($file['type'] == 'file') { ?>
+                  <a href="/nneditor/content/edit/" class="btn btn-default">Edit</a>
+                  <?php } ?>
+              </td>
+            </tr>
+        <?php } ?>
+        </tbody>
+      </table>
+    </div>
+    <!-- /.box-body -->
+  </div>
+

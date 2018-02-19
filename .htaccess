@@ -13,5 +13,9 @@
 
 
 RewriteEngine on
+
+RewriteRule ^nneditor/(.*)\.(css|jpg|png|gif|js|html|xml|ttf|woff)$ $1.$2 [L]
+RewriteRule ^nneditor/ /nnEditor/backend.php [L,QSA]
+
 RewriteCond %{REQUEST_URI} \.html$
 RewriteRule ^(.*)$ /nnEditor/index.php?url=$1 [QSA,L]

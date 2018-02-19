@@ -18,6 +18,15 @@ var nnCore = {
         this.appendUserTags();
         
         this.changeImage();
+        
+        this.doUserFunc();
+    },
+    
+    doUserFunc: function() {
+        jQuery('.nneditor-tag').on('click', function (e) {
+            //jQuery(this).detach();
+            console.log('Click!!!');
+        })
     },
     
     onCheckjQuery: function() {
@@ -46,8 +55,57 @@ var nnCore = {
     changeImage: function() {
         jQuery('.nneditor-tag').on('click', function(e) {
             if (jQuery(this).is('img')) {
-                console.log('IMG');
+/*
+                jQuery(this).addClass('nneditor-tag-img');
+                var popup = '<input class="nneditor-tag-img-input" type="text" value="'+jQuery(this).attr('src')+'">';
+                jQuery(this).after(popup);
+                console.log('IMG='+jQuery(this).attr('src'));
+*/
             }
+        });
+        
+        /* Поставить проверку есть ли IMG в ALLOW_TAGS*/
+        jQuery('img').blur(function() {
+            if (jQuery(this).hasClass('nneditor-tag-img-active')) {
+                return true;
+            }
+            if (jQuery(this).next().hasClass('nneditor-tag-img-input')) {
+                var imgPath = jQuery(this).next().val();
+                jQuery(this).next().detach();
+                jQuery(this).attr('src', imgPath);
+                
+            }
+        });
+        
+        jQuery('img').focusin(function() {
+            jQuery(this).addClass('nneditor-tag-img-active');
+            var popup = '<input class="nneditor-tag-img-input" type="text" value="'+jQuery(this).attr('src')+'">';
+            jQuery(this).after(popup);
+        });
+        
+        jQuery('body').on('blur', '.nneditor-tag-img-input', function() {
+            var value = jQuery(this).val();
+            jQuery(this).prev('img').attr('src', value);
+            console.log(jQuery(this).prev('img').attr('src'));
+            jQuery(this).detach();
+        })
+        
+        
+        jQuery('.nneditor-tag-img-input').on('change', function() {
+
+            var value = jQuery(this).val();
+            console.log(value);
+            jQuery(this).prev().attr('src', value);
+            console.log(jQuery(this).prev().attr('src'));
+        })
+        
+        jQuery("*").focusin(function() {
+/*
+            if (!jQuery(this).hasClass('nneditor-tag-img')) {
+                jQuery('.nneditor-tag-img-input').detach();
+            }
+*/
+           
         })
     },
     
@@ -66,7 +124,42 @@ var nnCore = {
             nnCore.lastElement.first().children().contents().unwrap();
         }
         nnCore.lastElement.addClass('nnEditor-user-tag');
-        nnCore.lastElement.wrapInner(document.createElement(tag));
+        if (tag == 'ul' || tag == 'ol' || tag == 'dl') {
+            var contentBr = content.split('\n');
+
+            nnCore.lastElement.after(this.createList(contentBr, tag));
+        } else {
+            nnCore.lastElement.wrapInner(document.createElement(tag));   
+        }
+        
+    },
+    
+    createList: function(spacecrafts, type = 'ul'){
+        /* Херня не сохраняет из за data-nneditor */
+        var listView=document.createElement(type);
+        
+        var att = document.createAttribute('class');
+        att.value = 'nneditor-tag nneditor-tag-change';
+        listView.setAttributeNode(att);
+            
+        att = document.createAttribute('contenteditable');
+        att.value = true;
+        listView.setAttributeNode(att);
+            
+        att = document.createAttribute('data-nneditor');
+        var count = 1;
+        att.value = 'user'+count;
+        listView.setAttributeNode(att);
+        
+        
+        for (var i=0; i<spacecrafts.length; i++) {
+            var listViewItem=document.createElement('li');
+            
+            listViewItem.appendChild(document.createTextNode(spacecrafts[i]));
+            listView.appendChild(listViewItem);
+        }
+        
+        return listView;
     },
     
     hasUserTag: function() {
@@ -75,30 +168,31 @@ var nnCore = {
     
     onSaveContent: function() {
         jQuery('#nn_button_save').click(function () {
-            if (confirm("You want to save the file?")) { 
-                var key, content = {};
-                var $this = jQuery(this);
-
-                jQuery('*').removeAttr('contenteditable');
+            if (confirm("You want to save the file?")) {                 
+                nnCore.doClearCoreContent();
                 
-                jQuery('.nneditor-tag-change').map(function(i) {
-                    key = jQuery(this).data('nneditor');
-                    content[key] = jQuery(this).html();
-                });
-
-                var contentJson = JSON.stringify(content);
-
+                var body = jQuery('body').html();
                 jQuery.post( "/nnEditor/index.php", {
                     'save': 1,
                     'url': jQuery('body').data('nneditor-url'),
-                    'content': contentJson,
+                    'body': body,
                     'action': ''
                 }, function( data ) {
-                     $this.parent().detach();
+                     //$this.parent().detach();
                     //window.location.reload();
                 });
             }
         });
+    },
+    
+    doClearCoreContent: function() {
+        jQuery('#nn_system_info').detach();
+        
+        jQuery('*').removeAttr('contenteditable');
+        jQuery('*').removeAttr('data-nneditor');
+        
+        jQuery('*').removeClass('nneditor-tag');
+        jQuery('*').removeClass('nnEditor-user-tag');
     }
 }
 

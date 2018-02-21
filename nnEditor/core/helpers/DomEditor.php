@@ -64,12 +64,13 @@ class DomEditor
         $script->nodeValue = $tagsJs;
         
         $hd->appendChild($script);
-
+        
         $script = $this->_dom->createElement('script');
         $scriptAttr = $this->_dom->createAttribute('src');
         $scriptAttr->value= '/nnEditor/static/js/app.js';
         $script->appendChild($scriptAttr);
         $hd->appendChild($script);
+        
         
         return $this->saveHtmlDom();
     }
@@ -115,7 +116,86 @@ class DomEditor
     private function _fetchPanelHtml()
     {
         $display = new \nnEditor\Core\Display();
-        return $display->fetch('panel.phtml');
+        
+        $tagDecorations = array(
+            array(
+                'name' => 'formatBlock',
+                'caption' => 'HH1',
+                'param' => '<h1>'
+            ),
+            array(
+                'name' => 'formatBlock',
+                'caption' => 'HH2',
+                'param' => '<h2>'
+            ),
+            array(
+                'name' => 'insertUnorderedList',
+                'caption' => 'ULL',
+                'param' => null
+            ),
+            array(
+                'name' => 'insertOrderedList',
+                'caption' => 'OLL',
+                'param' => null
+            ),
+             array(
+                'name' => 'formatBlock',
+                'caption' => 'PP',
+                'param' => '<p>'
+            ),
+            array(
+                'name' => 'bold',
+                'caption' => 'B',
+                'param' => null
+            ),
+            array(
+                'name' => 'italic',
+                'caption' => 'I',
+                'param' => null,
+            ),
+            array(
+                'name' => 'underline',
+                'caption' => 'U',
+                'param'   => null
+            ),
+            array(
+                'name' => 'justifyCenter',
+                'caption' => 'justifyCenter',
+                'param' => null
+            ),
+            array(
+                'name' => 'justifyFull',
+                'caption' => 'justifyFull',
+                'param' => null
+            ),
+            array(
+                'name' => 'justifyLeft',
+                'caption' => 'justifyLeft',
+                'param' => null
+            ),
+            array(
+                'name' => 'justifyRight',
+                'caption' => 'justifyRight',
+                'param' => null
+            ),
+            array(
+                'name' => 'removeFormat',
+                'caption' => 'removeFormat',
+                'param' => null
+            ),
+            array(
+                'name' => 'undo',
+                'caption' => 'Undo',
+                'param' => null
+            ),
+            
+        ); 
+        
+        $vars = array(
+            'tagDecorations' => $tagDecorations
+        );
+        
+        return $display->fetch('panel.phtml', $vars);
     }
     
     private function _fetchAllowedTagsByJs()

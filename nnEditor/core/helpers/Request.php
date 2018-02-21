@@ -8,8 +8,11 @@ class Request
     private $_request;
     
     const TYPE_REQUEST = 'request';
-    const TYPE_POST = 'post';
-    const TYPE_GET = 'get';
+    const TYPE_POST    = 'post';
+    const TYPE_GET     = 'get';
+    
+    const TYPE_FIELD_STRING = 'string';
+    const TYPE_FIELD_EMAIL  = 'email';
     
     public function __construct()
     {
@@ -40,10 +43,24 @@ class Request
         return array_key_exists($key, $this->_request);
     }
        
-    public function post($key = false)
+    public function post($key = false, $type = self::TYPE_FIELD_STRING, &$error = array())
     {   
         if ($key && $this->has($key, static::TYPE_POST)) {
-            return $this->_post[$key];
+            switch ($type) {
+                case self::TYPE_FIELD_STRING:
+                    $value = filter_var($this->_post[$key], FILTER_SANITIZE_STRING);
+                    if (!$value) {
+                        $error[] = 'String Error';
+                    }
+                    break;
+                case self::TYPE_FIELD_EMAIL:
+                    $value = filter_var($this->_post[$key], FILTER_VALIDATE_EMAIL);
+                    if (!$value) {
+                        $error[] = 'Email Error';
+                    }
+                    break;
+            }
+            return $value;
         }
         
         return $this->_post;

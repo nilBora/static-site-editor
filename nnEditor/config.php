@@ -36,3 +36,5 @@ include_once 'core/Response.php';
 include_once 'core/Backend.php';
 include_once 'core/Frontend.php';
 include_once 'core/Auth.php';
+include_once 'core/Container.php';
+include_once 'core/tmpengine/tmpEngine.php';

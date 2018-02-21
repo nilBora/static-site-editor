@@ -52,4 +52,17 @@ class Dispatcher extends ArrayObject
         }
         return false;
     }
+    
+    protected function getPreparedData($data, $conditions = array())
+    {
+        if (!is_array($data)) {
+            throw new \Exception('Data Not Found');
+        }
+        
+        foreach ($data as $key => $item) {
+            //
+        }
+        
+        return $data;
+    }
 }

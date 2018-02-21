@@ -3,6 +3,7 @@
         <li class="active">
             <a id="nn_button_save" href="javascript:;">Save</a>
         </li>
+<!--
         <li>
             <a class="nn-custom-button" data-nn-tag="h1" href="javascript:;">H1</a>
         </li>
@@ -18,5 +19,13 @@
         <li>
             <a class="nn-custom-button" data-nn-tag="dl" href="javascript:;">Dl</a>
         </li>
+-->
+        
+        <?php foreach ($tagDecorations as $index => $option) { ?>
+            <li>
+                <a class="nn-custom-button" data-nn-tag="textDecoration" data-nn-command="<?php echo $option['name']; ?>" data-nn-param="<?php echo $option['param']; ?>" href="javascript:;"><?php echo $option['caption'];?></a>
+            </li>
+        <?php } ?>
+               
     </ul>
 </nav>

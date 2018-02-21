@@ -13,6 +13,9 @@ class Api
     private static $_token = null;
     private static $_tokenName = 'Access-Token';
     
+    private $_host = 'http://api.develop-nil.com/';
+    private $_urlAuth = 'api/login';
+    
     public function setToken($token)
     {
         static::$_token = $token;
@@ -103,6 +106,19 @@ class Api
         static::$_tokenName = $name;
     }
     
+    public function getBasicAuth($data)
+    {
+        $facade = HelperFacade::factory();
+        $curl = $facade->get('Curl');
+        $userData = sprintf("%s:%s", $data['username'], $data['password']);
+        
+        return $curl->getBasicAuth($this->_getUrlAuth(), $userData);
+    }
+    
+    private function _getUrlAuth()
+    {
+        return $this->_host.$this->_urlAuth;
+    }
 }
 
 class ApiException extends \Exception

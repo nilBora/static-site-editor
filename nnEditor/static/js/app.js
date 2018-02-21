@@ -1,6 +1,7 @@
 var nnCore = {
     
     lastElement: false,
+    lastElementSelection: false,
     selectors: {
         tag: '.nneditor-tag',
         tagChange: '.nneditor-tag-change'
@@ -22,24 +23,30 @@ var nnCore = {
         this.doUserFunc();
     },
     
-    doUserFunc: function() {
-        jQuery('.nneditor-tag').on('click', function (e) {
-            //jQuery(this).detach();
-            console.log('Click!!!');
-        })
-    },
-    
     onCheckjQuery: function() {
         if (!window.jQuery) {
             console.log("Include JS");
         }
     },
     
+    doUserFunc: function() {
+        jQuery('.nneditor-tag').on('click', function (e) {
+            console.log('Click!!!');
+        })
+    },
+    
     appnedChangeContentEditable: function() {
-        jQuery(this.selectors.tag).on('input', function() {
+        jQuery(this.selectors.tag).on('focus', function() {
             jQuery(this).addClass('nneditor-tag-change');
             nnCore.lastElement = jQuery(this);
         });
+        jQuery(this.selectors.tag).dblclick(function() {
+            
+            jQuery(this).addClass('nneditor-tag-change');
+            nnCore.lastElement = jQuery(this);
+            nnCore.lastElementSelection = window.getSelection();
+        });
+        
     },
     
     appendContentEditable: function() {
@@ -112,26 +119,85 @@ var nnCore = {
     appendUserTags: function() {
         jQuery('.nn-custom-button').on('click', function(e) {
             e.preventDefault();
-            var tag = jQuery(this).data('nn-tag');
-            nnCore.appendUserTag(tag);
+            
+            nnCore.appendUserTag(jQuery(this));
         });
     },
     
-    appendUserTag: function(tag) {
+    appendUserTag: function($this) {
+        
+        var tag = $this.data('nn-tag');
+       
+        
         var content = nnCore.lastElement.html();
         
         if (nnCore.hasUserTag()) {
-            nnCore.lastElement.first().children().contents().unwrap();
+            //nnCore.lastElement.first().children().contents().unwrap();
         }
         nnCore.lastElement.addClass('nnEditor-user-tag');
-        if (tag == 'ul' || tag == 'ol' || tag == 'dl') {
+        
+        if (tag == 'textDecoration') {
+            //nnCore.lastElement.focus();
+            
+            var range, sel, command, commandParam;
+            if (window.getSelection) {
+                // Non-IE case
+                sel = window.getSelection();
+                if (sel.getRangeAt) {
+                    range = sel.getRangeAt(0);
+                }
+                document.designMode = "on";
+                if (range) {
+                    sel.removeAllRanges();
+                    sel.addRange(range);
+                }
+                
+                if ($this[0].hasAttribute('data-nn-command')) {
+                    command = $this.data('nn-command');
+                }
+                
+                commandParam = null;
+                if ($this[0].hasAttribute('data-nn-param')) {
+                    commandParam = $this.data('nn-param');
+                }
+                
+                
+                document.execCommand(command, false, commandParam);
+                
+                var newNode = window.getSelection().focusNode.parentNode;
+                jQuery(newNode).addClass("nnEditor-user-tag");
+                jQuery(newNode).attr('contenteditable', true);
+                
+                
+                document.designMode = "off";
+            } else if (
+                document.selection && document.selection.createRange &&
+                document.selection.type != "None"
+            ) {
+                // IE case
+                range = document.selection.createRange();
+                range.execCommand(command, false, null);
+            }
+        } else if (tag == 'ul' || tag == 'ol' || tag == 'dl') {
             var contentBr = content.split('\n');
-
             nnCore.lastElement.after(this.createList(contentBr, tag));
         } else {
             nnCore.lastElement.wrapInner(document.createElement(tag));   
         }
         
+    },
+    
+    getCommandByTag: function(tag) {
+        var command = false;
+        if (tag == 'i') {
+            command = 'italic';
+        } else if (tag == 'strong') {
+            command = 'bold';
+        } else if (tag == 'u') {
+            command = 'underline';
+        }
+        
+        return command;
     },
     
     createList: function(spacecrafts, type = 'ul'){

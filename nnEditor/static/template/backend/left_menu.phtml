@@ -1,9 +1,10 @@
 <ul class="sidebar-menu" data-widget="tree">
     <li class="header">MAIN NAVIGATION</li>
     <li class="">
-      <a href="/nneditor/filemanager/"><i class="fa fa-circle-o"></i>File Maneger</a>
+      <a href="{{ siteUrl('/filemanager/') }}"><i class="fa fa-circle-o"></i>File Maneger</a>
     </li>
     <li class="">
-      <a href="/nneditor/history/"><i class="fa fa-th"></i>History</a>
+      <a href="{{ siteUrl('/history/') }}"><i class="fa fa-th"></i>History</a>
     </li>
-  </ul>
+    {{ $.container.show('LEFT') }}
+</ul>

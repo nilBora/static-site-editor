@@ -11,14 +11,12 @@ class Response extends \nnEditor\Core\Dispatcher
     
     const ACTION_REDIRECT = 'redirect';
     
-    protected $url = false;
+    public $url = false;
+    public $content = '';
     
     protected $layout = 'main.phtml';
     protected $type;
     protected $action;
-    
-    public $content = '';
-    
     protected $display;
     
     public function __construct($type = self::TYPE_NORMAL, $action = false)
@@ -33,14 +31,13 @@ class Response extends \nnEditor\Core\Dispatcher
     {
         if ($this->_isActionRedirect()) {
             $url = $this->url;
-            header("Location: ".$url, true,301);
+            header("Location: ".$url, true, 301);
             exit;
         }
        
         if ($this->_isTypeNormal()) {
 
             $this->display->display($this->content);
-            //$module->display($this->content, $this->layout);
             
             return true;
         }

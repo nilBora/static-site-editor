@@ -3,6 +3,7 @@
 namespace nnEditor\Core;
 
 use nnEditor\Core\Dispatcher;
+use nnEditor\Core\tmpengine\tmpEngine;
 
 class Display extends Dispatcher
 {
@@ -83,7 +84,11 @@ class Display extends Dispatcher
 
         $result = ob_get_contents();
         ob_end_clean();
-
+        
+        $tmpEngine = new tmpEngine();
+        
+        $result = $tmpEngine->parse($result);
+        
         return $result;
     }
     
@@ -98,7 +103,8 @@ class Display extends Dispatcher
         
         $vars['content'] = $content;
         $vars['infoPage'] = array(
-            'js' => $staticHelper->getJs()
+            'js'         => $staticHelper->getJs(),
+            'static_url' => Controller::getInstance()->getStaticPath()
         );
         $vars['user'] = $this->getUser();
         

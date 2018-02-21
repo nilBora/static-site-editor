@@ -13,12 +13,6 @@ $routes = array(
         'group'     => 'backend',
         'namespace' => 'nnEditor\Core'
     ),
-    '/files/(.+)/' => array(
-        'use' => 'Backend@displayDefault',
-        'auth' => true,
-        'group' => 'backend',
-        'namespace' => 'nnEditor\Core'
-    ),
     '/filemanager/' => array(
         'use'       => 'Backend@onDisplayFileManager',
         'auth'      => true,
@@ -63,6 +57,12 @@ $routes = array(
     ),
     '/auth/' => array(
         'use'       => 'Auth@onAuth',
+        'auth'      => false,
+        'group'     => 'backend',
+        'namespace' => 'nnEditor\Core'
+    ),
+    '/logout/' => array(
+        'use'       => 'Auth@onLogout',
         'auth'      => false,
         'group'     => 'backend',
         'namespace' => 'nnEditor\Core'

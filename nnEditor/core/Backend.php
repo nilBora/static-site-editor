@@ -86,7 +86,10 @@ class Backend extends Display
         
         return $result;
     }
-        
+    
+    /**
+     * @before test 1
+     */
     public function onDisplayEdit(Response &$response)
     {
         if (!empty($_SESSION['currentEditFile'])) {
@@ -188,5 +191,10 @@ class Backend extends Display
         
         echo json_encode(array('ok' => 1));
         exit;
-    }    
+    }
+    
+    public function onDisplayLeftMenu(Response &$response)
+    {
+        $response->content = $this->fetch('container_left_menu.phtml');
+    }
 }

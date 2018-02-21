@@ -19,7 +19,7 @@ class Controller extends \nnEditor\Core\Dispatcher
     {
         if (isset(self::$_instance)) {
 			$msg = 'Instance already defined use Controller::getInstance';
-			throw new Exception($msg);
+			throw new SystemException($msg);
 		}
         
         parent::__construct();
@@ -125,6 +125,11 @@ class Controller extends \nnEditor\Core\Dispatcher
 		throw new NotFoundException();
     }
     
+    public function getBundles()
+    {
+        return static::$_bundles;
+    }
+    
     private function _onInitFrontend()
     {
         $frontend = new Frontend();
@@ -145,11 +150,57 @@ class Controller extends \nnEditor\Core\Dispatcher
             $params
         );
         
+/*
+        $this->_doPrepareResponseByAnnotationss(
+            $response,
+            $controller,
+            $method
+        );
+*/
+        
         $response->send($controller);
         return true;
     }
     
-   private function _hasExistMethodControllerByConfig($currentRouteConfig)
+    private function _doPrepareResponseByAnnotationss(
+        $response, $controller, $method
+    )
+    {
+        $annotations = $this->getClassAnnotations($controller, $method);
+        if (!$annotations) {
+            return false;
+        }
+        
+        foreach ($annotations as $annotation) {
+            $params = explode(" ", $annotation);
+            if ($params[0] == 'before') {
+               //
+            }
+        }
+        
+        return true;
+    }
+    // TODO: move to helper Annotations Controller
+    public function getClassAnnotations($class, $method)
+    {
+        $r = new \ReflectionMethod($class, $method);
+       
+        $doc = $r->getDocComment();
+        
+        $allow = ['Response', 'before'];
+        
+        $regExp = '#@('.implode("|", $allow).'.*?)\n#s';
+        
+        preg_match_all($regExp, $doc, $annotations);
+
+        if (empty($annotations[1])) {
+            return false;
+        }
+        
+        return $annotations[1];
+    }
+        
+    private function _hasExistMethodControllerByConfig($currentRouteConfig)
 	{
         if (!array_key_exists('controller', $currentRouteConfig)) {
             throw new NotFoundException();
@@ -221,7 +272,7 @@ class Controller extends \nnEditor\Core\Dispatcher
     public function getConfig($key)
     {
         if (!array_key_exists($key, $this->_config)) {
-            throw new Exception('Not found config with key: '.$key);
+            throw new SystemException('Not found config with key: '.$key);
         }
         
         return $this->_config[$key];
@@ -231,6 +282,15 @@ class Controller extends \nnEditor\Core\Dispatcher
     {
         return $this->_config;
     }
+    
+    public function getStaticPath()
+    {
+        return '/nnEditor/static/';
+    }
+}
+
+class SystemException extends \Exception
+{
 }
 
 class PermissionException extends \Exception

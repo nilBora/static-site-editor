@@ -107,6 +107,6 @@ class Frontend extends Display
                             'table', 'tbody', 'td', 'textarea', 'tfoot', 
                             'th', 'thead', 'tr', 'ul', 'var'] 
         */
-        return ['h1', 'p', 'ul', 'img'];
+        return ['h1', 'p', 'img'];
     }
 }

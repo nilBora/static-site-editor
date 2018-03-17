@@ -66,6 +66,18 @@ $routes = array(
         'auth'      => false,
         'group'     => 'backend',
         'namespace' => 'nnEditor\Core'
+    ),
+    '/load/panel/' => array(
+        'use'       => 'Frontend@fetchPanel',
+        'auth'      => false,
+        'group'     => 'backend',
+        'namespace' => 'nnEditor\Core'
+    ),
+    '/save/content/' => array(
+        'use'       => 'Frontend@doSaveContent',
+        'auth'      => false,
+        'group'     => 'backend',
+        'namespace' => 'nnEditor\Core'
     )
 );
 

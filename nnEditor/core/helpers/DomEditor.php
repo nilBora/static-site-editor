@@ -7,7 +7,7 @@ class DomEditor
     private $_dom;
     private $_adapter = null;
     
-    public function __construct(&$adapter)
+    public function __construct(&$adapter = false)
     {
         $this->_adapter = $adapter;
         
@@ -52,150 +52,83 @@ class DomEditor
     
     public function getContentWithAdminPanel()
     {
-        $this->_displayPanel();
-        
-        
         $hd = $this->_dom->getElementsByTagName('body');
-        $hd = $hd->item(0);
+        $hd = $hd->item(0); 
         
-        $script = $this->_dom->createElement('script');
-        $tagsJs = $this->_fetchAllowedTagsByJs();
+        $this->_createDivContainer($hd);
         
-        $script->nodeValue = $tagsJs;
         
-        $hd->appendChild($script);
+        $this->_createCoreScript($hd);
         
-        $script = $this->_dom->createElement('script');
-        $scriptAttr = $this->_dom->createAttribute('src');
-        $scriptAttr->value= '/nnEditor/static/js/app.js';
-        $script->appendChild($scriptAttr);
-        $hd->appendChild($script);
         
+        $this->_createInitCoreScript($hd);
         
         return $this->saveHtmlDom();
     }
     
-    private function _displayPanel()
+    /*
+     * <div id="NB-Eitor" class="nn-editor-content" style="position: fixed; bottom: 5%; z-index: 99999; opacity: 0.9; width: 100%;"></div>
+    */
+    private function _createDivContainer($hd)
     {
-        $this->_includeCss('panel.css');
-         
-        $hd = $this->_dom->getElementsByTagName('body');
-        $hd = $hd->item(0);
-        
         $div = $this->_dom->createElement('div');
+        
         $idAttr = $this->_dom->createAttribute('id');
-        $idAttr->value = "nn_system_info";
+        $idAttr->value = "NB-Eitor";
         $div->appendChild($idAttr);
-        $div->nodeValue = $this->_fetchPanelHtml();
+        
+        $classAttr = $this->_dom->createAttribute('class');
+        $classAttr->value = "nn-editor-content";
+        $div->appendChild($classAttr);
+                
+        $styleAttr = $this->_dom->createAttribute('style');
+        $styleAttr->value = "position: fixed; bottom: 5%; 
+                             z-index: 99999; opacity: 0.9; width: 100%;";
+        $div->appendChild($styleAttr);
         
         $hd->appendChild($div);
+        
+        return true;
     }
     
-    private function _includeCss($cssName)
+    /*
+     *   <script type="text/javascript" src="/nnEditor/static/js/app.js"></script>    
+    */
+    private function _createCoreScript($hd)
     {
-        $hd = $this->_dom->getElementsByTagName('head');
-        $hd = $hd->item(0);
+        $script = $this->_dom->createElement('script');
         
-        $style = $this->_dom->createElement('link');
+        $typeAttr = $this->_dom->createAttribute('type');
+        $typeAttr->value = "text/javascript";
+        $script->appendChild($typeAttr);
         
-        $styleAttr = $this->_dom->createAttribute('type');
-        $styleAttr->value= 'text/css';
-        $style->appendChild($styleAttr);
+        $scrAttr = $this->_dom->createAttribute('src');
+        $scrAttr->value = "/nnEditor/static/js/app.js";
+        $script->appendChild($scrAttr);
         
-        $styleAttr = $this->_dom->createAttribute('rel');
-        $styleAttr->value= 'stylesheet';
-        $style->appendChild($styleAttr);
+        $hd->appendChild($script);
         
-        $styleAttr = $this->_dom->createAttribute('href');
-        $styleAttr->value= '/nnEditor/static/css/'.$cssName;
-        $style->appendChild($styleAttr);
-        
-        $hd->appendChild($style);
+        return true;
     }
     
-    private function _fetchPanelHtml()
+    /*
+     * <script>nnCore.initJS()</script>
+    */
+    private function _createInitCoreScript($hd)
+    {
+        $scriptCore = $this->_dom->createElement('script');
+        $scriptCore->nodeValue = "nnCore.initJS()";
+        
+        $hd->appendChild($scriptCore);
+        
+        return true;
+    }
+    
+    public function _fetchPanelHtml()
     {
         $display = new \nnEditor\Core\Display();
-        
-        $tagDecorations = array(
-            array(
-                'name' => 'formatBlock',
-                'caption' => 'HH1',
-                'param' => '<h1>'
-            ),
-            array(
-                'name' => 'formatBlock',
-                'caption' => 'HH2',
-                'param' => '<h2>'
-            ),
-            array(
-                'name' => 'insertUnorderedList',
-                'caption' => 'ULL',
-                'param' => null
-            ),
-            array(
-                'name' => 'insertOrderedList',
-                'caption' => 'OLL',
-                'param' => null
-            ),
-             array(
-                'name' => 'formatBlock',
-                'caption' => 'PP',
-                'param' => '<p>'
-            ),
-            array(
-                'name' => 'bold',
-                'caption' => 'B',
-                'param' => null
-            ),
-            array(
-                'name' => 'italic',
-                'caption' => 'I',
-                'param' => null,
-            ),
-            array(
-                'name' => 'underline',
-                'caption' => 'U',
-                'param'   => null
-            ),
-            array(
-                'name' => 'justifyCenter',
-                'caption' => 'justifyCenter',
-                'param' => null
-            ),
-            array(
-                'name' => 'justifyFull',
-                'caption' => 'justifyFull',
-                'param' => null
-            ),
-            array(
-                'name' => 'justifyLeft',
-                'caption' => 'justifyLeft',
-                'param' => null
-            ),
-            array(
-                'name' => 'justifyRight',
-                'caption' => 'justifyRight',
-                'param' => null
-            ),
-            array(
-                'name' => 'removeFormat',
-                'caption' => 'removeFormat',
-                'param' => null
-            ),
-            array(
-                'name' => 'undo',
-                'caption' => 'Undo',
-                'param' => null
-            ),
-            
-        ); 
-        
-        $vars = array(
-            'tagDecorations' => $tagDecorations
-        );
-        
-        return $display->fetch('panel.phtml', $vars);
+
+        echo $display->fetch('panel.phtml');
     }
     
     private function _fetchAllowedTagsByJs()

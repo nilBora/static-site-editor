@@ -95,4 +95,14 @@ class Response extends \nnEditor\Core\Dispatcher
     {
         $this->content = $content;
     }
+    
+    public function setFragment($value = true)
+    {
+        $this->display->fragment = $value;
+    }
+    
+    public function &getDisplay()
+    {
+        return $this->display;
+    }
 }

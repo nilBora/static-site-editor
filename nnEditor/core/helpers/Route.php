@@ -34,6 +34,7 @@ class Route
             $uri  = '#^'.$prefix.$uri.'$#';
             //XXX: Fix This
             $uri = str_replace('//', '/', $uri);
+
             if (preg_match($uri, $currentUri, $matches)) {
                 array_shift($matches);
                 $use = explode('@', $config['use']);
@@ -114,6 +115,7 @@ class Route
     public function isBackend($httpBase = '/')
     {
         $httpBase = $this->_config['http_base'];
+        
         return preg_match('#'.$httpBase.'#Umis', $this->_requestUri);
     }
 }

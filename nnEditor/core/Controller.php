@@ -93,7 +93,7 @@ class Controller extends \nnEditor\Core\Dispatcher
         $rules = $this->_route->getRules();
         
 		if ($this->_hasExistMethodControllerByConfig($currentRouteConfig)) {
-			if ($this->_isAuthRoute($currentRouteConfig)) {                
+			if ($this->_isAuthRoute($currentRouteConfig)) {
                 $this->call(new Auth(), 'onDisplayLogin');
 				return true;
 			}

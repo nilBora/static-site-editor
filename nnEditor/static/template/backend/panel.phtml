@@ -1,0 +1,22 @@
+ <div class="row">
+    <div class="col-md-12 col-sm-12">
+ <nav class="navbar navbar-inverse" role="navigation">
+        <ul class="nav navbar-nav nn-custom">
+            <li class="active">
+                <a id="nn_button_save" href="javascript:;">Save</a>
+            </li>            
+            <?php foreach ($tagDecorations as $index => $option) { ?>
+                <li>
+                    <a class="nn-custom-button js-nn-panel-<?php echo $option['ident'];?>" data-nn-tag="textDecoration" data-nn-command="<?php echo $option['name']; ?>" data-nn-param="<?php echo $option['param']; ?>" href="javascript:;">
+                        <i class="fa fa-<?php echo $option['ident'];?>"></i>
+                        <?php echo $option['caption'];?></a>
+                </li>
+            <?php } ?>
+           
+            <li class="js-nn-color_picker">
+               <div id="colorSelector"><div style="background-color: #00ff00"></div></div>
+            </li> 
+        </ul>
+    </nav>
+    </div>
+</div>

@@ -1,0 +1,49 @@
+<html>
+<head>
+<title>Test</title>
+
+
+<link rel="stylesheet" media="screen" type="text/css" href="/nnEditor/static/plugins/colorpicker/css/colorpicker.css" />
+<link rel="stylesheet" media="screen" type="text/css" href="/nnEditor/static/plugins/colorpicker/css/layout.css" />
+
+<link type="text/css" rel="stylesheet" href="/nnEditor/static/bower_components/bootstrap/dist/css/bootstrap.min.css"></link>
+<link type="text/css" rel="stylesheet" href="/nnEditor/static/css/panel.css"></link>
+<link type="text/css" rel="stylesheet" href="/nnEditor/static/bower_components/font-awesome/css/font-awesome.min.css"></link>
+
+<script type="text/javascript" src="/js/jquery.js"></script>
+<script type="text/javascript" src="/nnEditor/static/plugins/colorpicker/js/colorpicker.js"></script>
+
+
+
+
+<script type="text/javascript" src="/nnEditor/static/js/app.js"></script>
+
+</head>
+<body>
+    <div class="nn-editor-content"></div>
+<script>
+   
+    $(function() {
+        var body = jQuery('body').html();
+        jQuery.post( "/nneditor/load/panel/", {}, function(data) {
+            jQuery('.nn-editor-content').html(data)
+        });
+        
+        
+        nnCore.onInit();
+        
+    });
+    
+    jQuery('head', window.parent.document).append('<link type="text/css" rel="stylesheet" href="/nnEditor/static/css/contenteditable.css"></link>'); 
+    
+    
+    jQuery('.aaaa').on('click', function() {
+        var body = window.parent.document.getElementsByTagName('body');
+        jQuery(body[0]).addClass('test');
+    })
+
+
+    
+</script>
+</body>
+</html>

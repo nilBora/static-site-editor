@@ -1,0 +1,30 @@
+
+[contenteditable="true"]:active {
+    border: 2px dashed red;
+/*     pointer-events: auto; */
+}
+[contenteditable="true"]:focus {
+    border: 2px dashed #1E90FF;
+    outline:none;
+/*     pointer-events: auto; */
+    
+}
+
+[contenteditable="true"]:hover {
+    border: 2px dashed #1E90FF;
+    outline:none;
+
+}
+[contenteditable="true"]:hover::after {
+/*
+   content: "x";
+   font-size: 15px;
+   position: absolute;
+   right: 0;
+   top:0;
+   cursor: pointer;
+*/
+}
+
+[contenteditable="true"]:focus::after, [contenteditable="true"]:active::after {
+}

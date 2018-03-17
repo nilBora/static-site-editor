@@ -126,32 +126,60 @@ fieldset[disabled] .navbar-inverse .btn-link:focus {
   color: #444;
 }
 
-[contenteditable="true"]:active {
-    border: 2px dashed red;
-/*     pointer-events: auto; */
+.fa-h1:before {
+    content:"\f1dc";
 }
-[contenteditable="true"]:focus {
-    border: 2px dashed #1E90FF;
-    outline:none;
-/*     pointer-events: auto; */
-    
+.fa-h2:before {
+    content:"\f1dc";
 }
-
-[contenteditable="true"]:hover {
-    border: 2px dashed #1E90FF;
-    outline:none;
-
-}
-[contenteditable="true"]:hover::after {
-/*
-   content: "x";
-   font-size: 15px;
-   position: absolute;
-   right: 0;
-   top:0;
-   cursor: pointer;
-*/
+.fa-ul:before {
+    content:"\f0ca";
 }
 
-[contenteditable="true"]:focus::after, [contenteditable="true"]:active::after {
+.fa-ol:before {
+    content:"\f0cb";
+}
+
+.fa-paragraph:before {
+    content:"\f1dd";
+}
+
+.fa-strong:before {
+    content:"\f032";
+}
+
+.fa-italic:before {
+    content:"\f033";
+}
+
+.fa-underline:before {
+    content:"\f0cd";
+}
+
+.fa-justify-center:before {
+    content:"\f037";
+}
+
+.fa-justify-full:before {
+    content:"\f039";
+}
+
+.fa-justify-left:before {
+    content:"\f036";
+}
+
+.fa-justify-right:before {
+    content:"\f038";
+}
+
+.fa-remove-format:before {
+    content:"\f12d";
+}
+
+.fa-undo:before {
+    content:"\f0e2";
+}
+
+.js-nn-color_picker {
+    margin-top: 5px;
 }

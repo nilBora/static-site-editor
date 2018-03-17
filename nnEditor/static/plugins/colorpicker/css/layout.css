@@ -1,0 +1,82 @@
+
+.js-nn-color_picker #colorSelector {
+	position: relative;
+	width: 36px;
+	height: 36px;
+	background: url(../images/select.png);
+}
+.js-nn-color_picker #colorSelector div {
+	position: absolute;
+	top: 3px;
+	left: 3px;
+	width: 30px;
+	height: 30px;
+	background: url(../images/select.png) center;
+}
+.js-nn-color_picker .js-nn-color_picker #colorSelector2 {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 36px;
+	height: 36px;
+	background: url(../images/select2.png);
+}
+.js-nn-color_picker #colorSelector2 div {
+	position: absolute;
+	top: 4px;
+	left: 4px;
+	width: 28px;
+	height: 28px;
+	background: url(../images/select2.png) center;
+}
+.js-nn-color_picker #colorpickerHolder2 {
+	top: 32px;
+	left: 0;
+	width: 356px;
+	height: 0;
+	overflow: hidden;
+	position: absolute;
+}
+.js-nn-color_picker #colorpickerHolder2 .colorpicker {
+	background-image: url(../images/custom_background.png);
+	position: absolute;
+	bottom: 0;
+	left: 0;
+}
+.js-nn-color_picker #colorpickerHolder2 .colorpicker_hue div {
+	background-image: url(../images/custom_indic.gif);
+}
+.js-nn-color_picker #colorpickerHolder2 .colorpicker_hex {
+	background-image: url(../images/custom_hex.png);
+}
+.js-nn-color_picker #colorpickerHolder2 .colorpicker_rgb_r {
+	background-image: url(../images/custom_rgb_r.png);
+}
+.js-nn-color_picker #colorpickerHolder2 .colorpicker_rgb_g {
+	background-image: url(../images/custom_rgb_g.png);
+}
+.js-nn-color_picker #colorpickerHolder2 .colorpicker_rgb_b {
+	background-image: url(../images/custom_rgb_b.png);
+}
+.js-nn-color_picker #colorpickerHolder2 .colorpicker_hsb_s {
+	background-image: url(../images/custom_hsb_s.png);
+	display: none;
+}
+.js-nn-color_picker #colorpickerHolder2 .colorpicker_hsb_h {
+	background-image: url(../images/custom_hsb_h.png);
+	display: none;
+}
+.js-nn-color_picker #colorpickerHolder2 .colorpicker_hsb_b {
+	background-image: url(../images/custom_hsb_b.png);
+	display: none;
+}
+.js-nn-color_picker #colorpickerHolder2 .colorpicker_submit {
+	background-image: url(../images/custom_submit.png);
+}
+.js-nn-color_picker #colorpickerHolder2 .colorpicker input {
+	color: #778398;
+}
+.js-nn-color_picker #customWidget {
+	position: relative;
+	height: 36px;
+}

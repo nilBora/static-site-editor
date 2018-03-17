@@ -21,17 +21,31 @@ class Frontend extends Display
     {
         $this->_dom = $this->getHelper('DomEditor', $this);
         
-        if ($this->_request->has('clear') && $this->_request->get('clear') == 1) {
+        if ($this->_hasClearInRequest()) {
             unlink(FS_BACKUP.$this->_request->get('url'));
         }
         
         if (!empty($this->_request->has('save'))) {
-            $this->_doSaveContent();
+            $this->doSaveContent();
             
             return true;
         }
-        $url = $this->_request->get('url');//$this->_request['url'];
         
+        $this->_onDisplayContent();
+        
+        return true;
+    }
+    
+    private function _hasClearInRequest()
+    {
+        return $this->_request->has('clear') && 
+               $this->_request->get('clear') == 1;
+    }
+    
+    private function _onDisplayContent()
+    {
+        $url = $this->_request->get('url');
+
         //XXX: Вынести в метод
         if (!file_exists(FS_BACKUP.$url)) {
             if (file_exists(FS_PROJECT.$url)) {
@@ -51,8 +65,6 @@ class Frontend extends Display
     
     private function _getPreparedContent($content)
     {
-       
-        //$domEditor = new DomEditor($this);
         $this->_dom->load($content);
         $content = $this->_dom->getPreparedDomContent();
         
@@ -70,21 +82,17 @@ class Frontend extends Display
         return array_key_exists('admin', $_GET) && $_GET['admin'] == 1;
     }
     
-    private function _doSaveContent()
+    public function doSaveContent()
     {
         $urlPost = $_POST['url'];
-        $contentPost = $_POST['content'];
+
         $contentBody = $_POST['body'];
-        
-        $contentPost = json_decode($contentPost, true);
 
         $contentHtml = file_get_contents(FS_BACKUP.$urlPost);
+        $dom= $this->getHelper('DomEditor', $this);
         
-        //$domEditor = new DomEditor($this);
-        $this->_dom->load($contentHtml);
-        $content = $this->_dom->doSaveBodyContent($contentBody);
-        
-        //$content = $domEditor->doDiffContent($contentPost);
+        $dom->load($contentHtml);
+        $content = $dom->doSaveBodyContent($contentBody);
 
         if (!file_put_contents(FS_BACKUP.$urlPost, $content)) {
             throw new Exception('File Not Save');
@@ -108,5 +116,110 @@ class Frontend extends Display
                             'th', 'thead', 'tr', 'ul', 'var'] 
         */
         return ['h1', 'p', 'img'];
+    }
+    
+    public function fetchPanel(Response &$response)
+    {
+        $tagDecorations = array(
+            array(
+                'name' => 'formatBlock',
+                'caption' => '1',
+                'param' => '<h1>',
+                'ident' => 'h1'
+            ),
+            array(
+                'name' => 'formatBlock',
+                'caption' => '2',
+                'param' => '<h2>',
+                'ident' => 'h2'
+            ),
+            array(
+                'name' => 'insertUnorderedList',
+                'caption' => '',
+                'param' => null,
+                'ident' => 'ul'
+            ),
+            array(
+                'name' => 'insertOrderedList',
+                'caption' => '',
+                'param' => null,
+                'ident' => 'ol'
+            ),
+             array(
+                'name' => 'formatBlock',
+                'caption' => '',
+                'param' => '<p>',
+                'ident' => 'paragraph'
+            ),
+            array(
+                'name' => 'bold',
+                'caption' => '',
+                'param' => null,
+                'ident' => 'strong'
+            ),
+            array(
+                'name' => 'italic',
+                'caption' => '',
+                'param' => null,
+                'ident' => 'italic'
+            ),
+            array(
+                'name' => 'underline',
+                'caption' => '',
+                'param'   => null,
+                'ident' => 'underline',
+            ),
+            array(
+                'name' => 'justifyCenter',
+                'caption' => '',
+                'param' => null,
+                'ident' => 'justify-center'
+            ),
+            array(
+                'name' => 'justifyFull',
+                'caption' => '',
+                'param' => null,
+                'ident' => 'justify-full'
+            ),
+            array(
+                'name' => 'justifyLeft',
+                'caption' => '',
+                'param' => null,
+                'ident' => 'justify-left'
+            ),
+            array(
+                'name' => 'justifyRight',
+                'caption' => '',
+                'param' => null,
+                'ident' => 'justify-right'
+            ),
+            array(
+                'name' => 'removeFormat',
+                'caption' => '',
+                'param' => null,
+                'ident' => 'remove-format'
+            ),
+            array(
+                'name' => 'undo',
+                'caption' => '',
+                'param' => null,
+                'ident' => 'undo'
+            ),
+            array(
+                'name' => 'foreColor',
+                'caption' => 'Change Color',
+                'param' => 'FF0000',
+                'ident' => 'foreColor',
+            )
+            
+        ); 
+        
+        $vars = array(
+            'tagDecorations' => $tagDecorations
+        );
+        $response->setFragment();
+        $response->content = $this->fetch('panel.phtml', $vars);
+
+        return true;
     }
 }

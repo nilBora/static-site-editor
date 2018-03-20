@@ -103,7 +103,7 @@ class DomEditor
         $script->appendChild($typeAttr);
         
         $scrAttr = $this->_dom->createAttribute('src');
-        $scrAttr->value = "/nnEditor/static/js/app.js";
+        $scrAttr->value = "/nnEditor/static/frontend/js/app.js";
         $script->appendChild($scrAttr);
         
         $hd->appendChild($script);

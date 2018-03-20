@@ -169,18 +169,8 @@ class Controller extends \nnEditor\Core\Dispatcher
             
             return true;
         }
-        
         $frontend = new Frontend();
-        $frontend->init(); 
-/*
-        if ($this->getHelper('Request')->get('url') == '/load/panel/') {
-            
-            
-        } else {
-              
-        }
-*/
-        
+        $frontend->init();
         
         return true;
     }
@@ -332,7 +322,7 @@ class Controller extends \nnEditor\Core\Dispatcher
     
     public function getStaticPath()
     {
-        return '/nnEditor/static/';
+        return '/nnEditor/static/backend/';
     }
 }
 

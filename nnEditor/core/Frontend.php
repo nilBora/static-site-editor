@@ -12,7 +12,7 @@ class Frontend extends Display
     
     public function __construct()
     {
-        parent::__construct();
+        parent::__construct(FS_TEMPLATES_FRONTEND);
         
         $this->_request = $this->getHelper('Request');
     }

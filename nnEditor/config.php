@@ -9,10 +9,12 @@ define("FS_BACKUP", FS_ROOT.'history/');
 define("FS_TEMPLATES", FS_ROOT.'static/template/');
 define("FS_CORE", FS_ROOT.'core/');
 define("FS_CORE_CONFIG", FS_CORE.'config/');
-define('FS_TEMPLATES_BACKEND', FS_TEMPLATES.'backend/');
-define('FS_TEMPLATES_FRONTEND', FS_TEMPLATES.'frontend/');
+
+
 define('FS_STATIC_FRONTEND',  FS_ROOT.'static/frontend/');
 define('FS_STATIC_BACKEND', FS_ROOT.'static/backend/');
+define('FS_TEMPLATES_FRONTEND', FS_STATIC_FRONTEND.'template/');
+define('FS_TEMPLATES_BACKEND', FS_STATIC_BACKEND.'template/');
 
 $GLOBALS['http_base'] = '/nneditor/';
 

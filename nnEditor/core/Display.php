@@ -7,7 +7,7 @@ use nnEditor\Core\tmpengine\tmpEngine;
 
 class Display extends Dispatcher
 {
-    private $__path;
+    protected $__path;
     
     public $fragment = false;
     

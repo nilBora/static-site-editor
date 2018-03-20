@@ -11,7 +11,8 @@ define("FS_CORE", FS_ROOT.'core/');
 define("FS_CORE_CONFIG", FS_CORE.'config/');
 define('FS_TEMPLATES_BACKEND', FS_TEMPLATES.'backend/');
 define('FS_TEMPLATES_FRONTEND', FS_TEMPLATES.'frontend/');
-
+define('FS_STATIC_FRONTEND',  FS_ROOT.'static/frontend/');
+define('FS_STATIC_BACKEND', FS_ROOT.'static/backend/');
 
 $GLOBALS['http_base'] = '/nneditor/';
 

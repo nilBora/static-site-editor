@@ -17,9 +17,17 @@ class Route
     }
     
     public function pareseUrl()
-    {
+    {   
         $requestUriArray = explode('?', $this->_requestUri);
+        
         $currentUri = $requestUriArray[0];
+        
+        if (preg_match("#url=(.*)#mis", $this->_requestUri, $matches)) {
+            if (!empty($matches[1])) {
+                $currentUri = $matches[1];
+            }
+        }
+        
         $result = [];
         
         $routes = $this->getRoutes();
@@ -34,8 +42,9 @@ class Route
             $uri  = '#^'.$prefix.$uri.'$#';
             //XXX: Fix This
             $uri = str_replace('//', '/', $uri);
-
+            
             if (preg_match($uri, $currentUri, $matches)) {
+                
                 array_shift($matches);
                 $use = explode('@', $config['use']);
                 

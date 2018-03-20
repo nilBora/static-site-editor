@@ -33,7 +33,7 @@ var nnCore = {
         
         this.initCss();
         
-        jQuery.post( "/nneditor/load/panel/", {}, function(data) {
+        jQuery.post( "/nnEditor/index.php?url=/load/panel/", {}, function(data) {
             jQuery('.nn-editor-content').html(data);
            
         });

@@ -14,8 +14,9 @@ class Controller extends \nnEditor\Core\Dispatcher
     private static $_bundles = null;
     
     private $_config;
+    private $_options = array();
     
-    public function __construct()
+    public function __construct($options = array())
     {
         if (isset(self::$_instance)) {
 			$msg = 'Instance already defined use Controller::getInstance';
@@ -24,16 +25,32 @@ class Controller extends \nnEditor\Core\Dispatcher
         
         parent::__construct();
         
+        $this->_setOptions($options);
+        
         $this->onInit();
     }
     
-    public static function &getInstance()
+    public static function &getInstance($options = array())
 	{
 		if (is_null(self::$_instance)) {
-			self::$_instance = new self();
+			self::$_instance = new self($options);
 		}
 		return self::$_instance;
 	}
+	
+    private function _setOptions($options)
+    {
+         $this->_options = $options;
+    }
+    
+    public function getOption($key)
+    {
+        if (!array_key_exists($key, $this->_options)) {
+            throw new Exception(sptintf('Key %s Not Found', $key));
+        }
+        
+        return $this->_options[$key];
+    }
 	
 	protected function onInit()
 	{
@@ -75,7 +92,7 @@ class Controller extends \nnEditor\Core\Dispatcher
     
     public function start()
     {
-        if ($this->_route->isBackend()) {
+        if ($this->_isBackend()) {
             $this->_onInitBackend();
             
             return true;
@@ -84,6 +101,11 @@ class Controller extends \nnEditor\Core\Dispatcher
         $this->_onInitFrontend();
         
         return true;
+    }
+    
+    private function _isBackend()
+    {
+        return $this->getOption('group') == 'backend';
     }
     
     private function _onInitBackend()
@@ -102,27 +124,34 @@ class Controller extends \nnEditor\Core\Dispatcher
                 $this->_doCheckRoleRules($currentRouteConfig['role'], $rules);
             }
             
-            $controllerName = $currentRouteConfig['controller'];
-            
-            $controllerName = $currentRouteConfig['controller'];
-            if (array_key_exists('namespace', $currentRouteConfig)) {
-                $controllerName = $currentRouteConfig['namespace'].'\\'.$controllerName;
-            }
-
-			$method = $currentRouteConfig['method'];
-			
-			if (!isset(static::$_bundles[$controllerName])) {
-    			static::$_bundles[$controllerName] = new $controllerName();
-			}
-			
-			$instance = static::$_bundles[$controllerName];
-			
-            $this->call($instance, $method, $currentRouteConfig['matches']);
+            $this->_doCallInstanceByRouts($currentRouteConfig); 
             
 			return true;
 		}
 		
 		throw new NotFoundException();
+    }
+    
+    private function _doCallInstanceByRouts($currentRouteConfig)
+    {
+        $controllerName = $currentRouteConfig['controller'];
+            
+        $controllerName = $currentRouteConfig['controller'];
+        if (array_key_exists('namespace', $currentRouteConfig)) {
+            $controllerName = $currentRouteConfig['namespace'].'\\'.$controllerName;
+        }
+
+		$method = $currentRouteConfig['method'];
+		
+		if (!isset(static::$_bundles[$controllerName])) {
+			static::$_bundles[$controllerName] = new $controllerName();
+		}
+		
+		$instance = static::$_bundles[$controllerName];
+		
+        $this->call($instance, $method, $currentRouteConfig['matches']);
+        
+        return true;
     }
     
     public function getBundles()
@@ -132,8 +161,26 @@ class Controller extends \nnEditor\Core\Dispatcher
     
     private function _onInitFrontend()
     {
+        $currentRouteConfig =  $this->_route->pareseUrl();
+        
+        if ($currentRouteConfig) {
+            
+            $this->_doCallInstanceByRouts($currentRouteConfig);            
+            
+            return true;
+        }
+        
         $frontend = new Frontend();
-        $frontend->init();
+        $frontend->init(); 
+/*
+        if ($this->getHelper('Request')->get('url') == '/load/panel/') {
+            
+            
+        } else {
+              
+        }
+*/
+        
         
         return true;
     }

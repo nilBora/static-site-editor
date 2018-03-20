@@ -70,13 +70,13 @@ $routes = array(
     '/load/panel/' => array(
         'use'       => 'Frontend@fetchPanel',
         'auth'      => false,
-        'group'     => 'backend',
+        'group'     => 'frontend',
         'namespace' => 'nnEditor\Core'
     ),
     '/save/content/' => array(
-        'use'       => 'Frontend@doSaveContent',
+        'use'       => 'Frontend@onAjaxSaveContent',
         'auth'      => false,
-        'group'     => 'backend',
+        'group'     => 'frontend',
         'namespace' => 'nnEditor\Core'
     )
 );
@@ -90,6 +90,9 @@ $rules = [
 $groups = [
     'backend' => [
         'prefix' => $GLOBALS['http_base']
+    ],
+    'frontend' => [
+        'prefix' => ''
     ]
 ];
 

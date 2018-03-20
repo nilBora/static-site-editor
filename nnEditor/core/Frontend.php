@@ -25,12 +25,6 @@ class Frontend extends Display
             unlink(FS_BACKUP.$this->_request->get('url'));
         }
         
-        if (!empty($this->_request->has('save'))) {
-            $this->doSaveContent();
-            
-            return true;
-        }
-        
         $this->_onDisplayContent();
         
         return true;
@@ -82,7 +76,7 @@ class Frontend extends Display
         return array_key_exists('admin', $_GET) && $_GET['admin'] == 1;
     }
     
-    public function doSaveContent()
+    public function onAjaxSaveContent(Response &$response)
     {
         $urlPost = $_POST['url'];
 
@@ -97,6 +91,9 @@ class Frontend extends Display
         if (!file_put_contents(FS_BACKUP.$urlPost, $content)) {
             throw new Exception('File Not Save');
         }
+        
+        $response->content = array('save' => 'ok');
+        $response->setType(Response::TYPE_JSON);
         
         return true;
     }

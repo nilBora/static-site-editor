@@ -2,8 +2,11 @@
 
 try {
     require_once "config.php";
-
-    $app = nnEditor\Core\Controller::getInstance();
+    
+    $options = array(
+        'group' => 'frontend'
+    );
+    $app = nnEditor\Core\Controller::getInstance($options);
      
     $app->start();
     

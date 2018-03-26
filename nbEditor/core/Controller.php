@@ -322,7 +322,7 @@ class Controller extends \nnEditor\Core\Dispatcher
     
     public function getStaticPath()
     {
-        return '/nnEditor/static/backend/';
+        return '/nbEditor/static/backend/';
     }
 }
 

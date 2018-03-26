@@ -113,16 +113,16 @@ class Backend extends Display
             }
            
             
-            $pathMode = '/nnEditor/static/plugins/ace/src/mode-'.$currentMode.'.js';
+            $pathMode = '/nbEditor/static/backend/plugins/ace/src/mode-'.$currentMode.'.js';
             if (!file_exists(FS_PROJECT.$pathMode)) {
-                $pathMode = '/nnEditor/static/plugins/ace/src/mode-php.js'; 
+                $pathMode = '/nbEditor/static/backend/plugins/ace/src/mode-php.js'; 
             }
             
             $staticHelper = $this->getHelper('StaticFiles');
             //$staticHelper->includeJS('asdasda');
             
-            $staticHelper->includeJS('/nnEditor/static/plugins/ace/src/ace.js');
-            $staticHelper->includeJS('/nnEditor/static/plugins/ace/src/theme-twilight.js');
+            $staticHelper->includeJS('/nbEditor/static/backend/plugins/ace/src/ace.js');
+            $staticHelper->includeJS('/nbEditor/static/backend/plugins/ace/src/theme-twilight.js');
             $staticHelper->includeJs($pathMode);
             
             $vars = array(

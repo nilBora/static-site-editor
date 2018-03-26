@@ -18,7 +18,7 @@
             var name = $this.data('name');
             var href = $this.attr('href');
             
-            jQuery.post('/nneditor/save/filemanager/', {'path': path, 'name': name}, function(data) {
+            jQuery.post('/nbeditor/save/filemanager/', {'path': path, 'name': name}, function(data) {
                 window.location.reload();
             })
         });
@@ -31,7 +31,7 @@
             var name = $this.data('name');
             var href = $this.attr('href');
             
-            jQuery.post('/nneditor/save/history/', {'path': path, 'name': name}, function(data) {
+            jQuery.post('/nbeditor/save/history/', {'path': path, 'name': name}, function(data) {
                 window.location.reload();
             })
         });
@@ -44,7 +44,7 @@
             var path = $this.data('path');
             var href = $this.attr('href');
             
-            jQuery.post('/nneditor/content/save/file/', {'path': path, 'name': name}, function(data) {
+            jQuery.post('/nbeditor/content/save/file/', {'path': path, 'name': name}, function(data) {
                 window.location.href = href;
             })
             

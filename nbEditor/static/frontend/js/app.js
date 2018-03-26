@@ -1,6 +1,6 @@
 var ALLOW_TAGS = ['p','h1', 'ul', 'img'];
 var nnCore = {
-    staticPath: '/nnEditor/static/frontend/',
+    staticPath: '/nbEditor/static/frontend/',
     lastElement: false,
     selectors: {
         tag: '.nneditor-tag',
@@ -33,7 +33,7 @@ var nnCore = {
         
         this.initCss();
         
-        jQuery.post( "/nnEditor/index.php?url=/load/panel/", {}, function(data) {
+        jQuery.post( "/nbEditor/index.php?url=/load/panel/", {}, function(data) {
             jQuery('.nn-editor-content').html(data);
            
         });
@@ -239,7 +239,7 @@ var nnCore = {
                 nnCore.doClearCoreContent();
                 
                 var body = jQuery('body').html();
-                jQuery.post( "/nnEditor/index.php?url=/save/content/", {
+                jQuery.post( "/nbEditor/index.php?url=/save/content/", {
                     'save': 1,
                     'url': jQuery('body').data('nneditor-url'),
                     'body': body,

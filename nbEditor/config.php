@@ -16,7 +16,7 @@ define('FS_STATIC_BACKEND', FS_ROOT.'static/backend/');
 define('FS_TEMPLATES_FRONTEND', FS_STATIC_FRONTEND.'template/');
 define('FS_TEMPLATES_BACKEND', FS_STATIC_BACKEND.'template/');
 
-$GLOBALS['http_base'] = '/nneditor/';
+$GLOBALS['http_base'] = '/nbeditor/';
 
 include_once 'core/Dispatcher.php';
 

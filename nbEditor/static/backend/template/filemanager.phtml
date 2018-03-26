@@ -18,7 +18,7 @@
             <tr>
               <td>
                   <?php if ($file['type'] == 'dir') { ?>
-                  <a class="js-open-dir" data-path="<?php echo $file['path']; ?>" data-name="<?php echo $name;?>" href="/nneditor/files/<?php echo $name;?>/">
+                  <a class="js-open-dir" data-path="<?php echo $file['path']; ?>" data-name="<?php echo $name;?>" href="{{ siteUrl(/files/<?php echo $name;?>/') }}">
                       <?php echo $name;?>
                   </a>
                   <?php } else {
@@ -28,7 +28,7 @@
               <td><?php echo $file['type']; ?></td>
               <td>
                   <?php if ($file['type'] == 'file') { ?>
-                  <a class="js-file-edit" href="/nneditor/content/edit/" data-name="<?php echo $name; ?>" data-path="<?php echo $file['path']; ?>" class="btn btn-default">Edit</a>
+                  <a class="js-file-edit" href="{{ siteUrl('/content/edit/') }}" data-name="<?php echo $name; ?>" data-path="<?php echo $file['path']; ?>" class="btn btn-default">Edit</a>
                   <?php } ?>
               </td>
             </tr>

@@ -14,11 +14,11 @@
 
 RewriteEngine on
 
-RewriteRule ^nneditor/(.*)\.(css|jpg|png|gif|js|html|xml|ttf|woff)$ $1.$2 [L]
-RewriteRule ^nneditor/ /nnEditor/backend.php [L,QSA]
+RewriteRule ^nbeditor/(.*)\.(css|jpg|png|gif|js|html|xml|ttf|woff)$ $1.$2 [L]
+RewriteRule ^nbeditor/ /nbEditor/backend.php [L,QSA]
 
 #RewriteRule \.(css|js|php|jpg|gif|jpeg|png|zip|gz|swf|xml|txt|ttf|woff|woff2|htc|svg|eot|ico|pdf|tgz)$ - [L]
-#RewriteRule .* /nnEditor/index.php [L,QSA]
+#RewriteRule .* /nbEditor/index.php [L,QSA]
 
 RewriteCond %{REQUEST_URI} \.html$
-RewriteRule ^(.*)$ /nnEditor/index.php?url=$1 [QSA,L]
+RewriteRule ^(.*)$ /nbEditor/index.php?url=$1 [QSA,L]

@@ -1,6 +1,6 @@
 var ALLOW_TAGS = ['p','h1', 'ul', 'img'];
 var nnCore = {
-    
+    staticPath: '/nnEditor/static/frontend/',
     lastElement: false,
     selectors: {
         tag: '.nneditor-tag',
@@ -43,12 +43,21 @@ var nnCore = {
     },
     
     initCss: function() {
-        jQuery('head').append('<link type="text/css" rel="stylesheet" href="/nnEditor/static/frontend/css/contenteditable.css"></link>');
-        jQuery('head').append('<link rel="stylesheet" media="screen" type="text/css" href="/nnEditor/static/frontend/plugins/colorpicker/css/colorpicker.css" />');
-        jQuery('head').append('<link rel="stylesheet" media="screen" type="text/css" href="/nnEditor/static/frontend/plugins/colorpicker/css/layout.css" />');
-        jQuery('head').append('<link type="text/css" rel="stylesheet" href="/nnEditor/static/frontend/components/bootstrap/dist/css/bootstrap.min.css"></link>');
-        jQuery('head').append('<link type="text/css" rel="stylesheet" href="/nnEditor/static/frontend/css/panel.css"></link>');
-        jQuery('head').append('<link type="text/css" rel="stylesheet" href="/nnEditor/static/frontend/components/font-awesome/css/font-awesome.css"></link>');
+        
+        var links = [
+            'css/contenteditable.css',
+            'plugins/colorpicker/css/colorpicker.css',
+            'plugins/colorpicker/css/layout.css',
+            'components/bootstrap/dist/css/bootstrap.min.css',
+            'css/panel.css',
+            'components/font-awesome/css/font-awesome.css'
+        ];
+        
+        links.map(function (name) {
+            jQuery('head').append(
+                '<link type="text/css" rel="stylesheet" href="'+nnCore.staticPath+name+'"></link>'
+            );
+        })
     },
         
     i: function(msg) {
@@ -230,7 +239,7 @@ var nnCore = {
                 nnCore.doClearCoreContent();
                 
                 var body = jQuery('body').html();
-                jQuery.post( "/nneditor/save/content/", {
+                jQuery.post( "/nnEditor/index.php?url=/save/content/", {
                     'save': 1,
                     'url': jQuery('body').data('nneditor-url'),
                     'body': body,
@@ -257,7 +266,7 @@ var nnCore = {
         
         jQuery('.nn-editor-content').on('click', '#colorSelector', function() {
             var $this = jQuery(this);
-            jQuery.getScript('/nnEditor/static/plugins/colorpicker/js/colorpicker.js', function() {
+            jQuery.getScript(nnCore.staticPath+'plugins/colorpicker/js/colorpicker.js', function() {
 
                  $this.ColorPicker({
                     color: '#0000ff',

@@ -1,0 +1,3 @@
+[submodule "nbEditor"]
+	path = nbEditor
+	url = https://github.com/nilBora/nbEditor.git
